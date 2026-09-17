@@ -4,9 +4,9 @@
 
 Pergunta principal:
 
-**Como a adocao dos principais sistemas operacionais difere entre desenvolvedores e mercado geral e como essa adocao evoluiu ao longo do tempo?**
+**Como a adocao dos principais sistemas operacionais difere entre desenvolvedores, mercado geral e uma fonte complementar de gamers, e como essa adocao evoluiu ao longo do tempo?**
 
-O objetivo e comparar Windows, Linux, macOS, Ubuntu quando identificado separadamente e outros sistemas operacionais presentes nos dados, considerando perfil dos respondentes, pais, experiencia, licenciamento e custo quando houver fonte confiavel.
+O objetivo e comparar Windows, Linux, macOS, Ubuntu quando identificado separadamente e outros sistemas operacionais presentes nos dados, considerando ano, pais, perfil profissional e experiencia quando esses campos existirem nos schemas reais.
 
 ## Data Understanding
 
@@ -16,7 +16,9 @@ StatCounter e usado como fonte secundaria de market share geral de sistemas oper
 
 A metrica do StatCounter nao representa respondentes do Stack Overflow nem numero absoluto de pessoas. Ela e uma participacao observada segundo a metodologia da fonte.
 
-Precos e licenciamento sao mantidos em CSV separado, com fontes oficiais e data de coleta. Preco de software e exigencia/custo de hardware sao tratados como variaveis diferentes.
+Steam Hardware & Software Survey e usada como fonte complementar para verificar se a tendencia de Linux tambem aparece entre usuarios da Steam/gamers. O historico em CSV vem de `https://github.com/jdegene/steamHWsurvey`, que organiza dados da pesquisa oficial da Steam e dados antigos via Web Archive.
+
+Precos e licenciamento foram tratados como possibilidade de extensao futura. Para o seminario, as fontes principais sao Stack Overflow Developer Survey, StatCounter e a verificacao complementar Steam.
 
 ## Data Preparation
 
@@ -31,9 +33,10 @@ Etapas previstas:
 - normalizar sistemas operacionais com regras explicitas;
 - gerar tabelas analiticas separadas;
 - salvar Parquet com compressao ZSTD;
-- construir banco DuckDB para consultas.
+- construir banco DuckDB para consultas;
 - importar StatCounter em formato longo preservando o nome original do sistema;
-- importar precos/licenciamento com preco de software, moeda, modelo de suporte e exigencia de hardware.
+- calcular a tendencia complementar da Steam em relatorio separado;
+- manter precos/licenciamento como extensao futura, caso a analise precise discutir custo.
 
 ## Modeling
 
@@ -56,7 +59,7 @@ A avaliacao inclui:
 - checagem de duplicidade de identificadores dentro de cada ano;
 - consulta DuckDB sobre tabelas finais;
 - validacao de datas e intervalo de market share;
-- validacao de precos nao negativos, moedas e fontes;
+- comparacao da tendencia de Linux com a Steam Survey;
 - revisao das limitacoes metodologicas.
 
 ## Deployment

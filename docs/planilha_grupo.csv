@@ -1,0 +1,17 @@
+Campo,Conteudo sugerido
+Tema,Adocao de sistemas operacionais entre desenvolvedores mercado desktop geral e gamers
+Pergunta de pesquisa,"Como a adocao de Windows, Linux e macOS entre desenvolvedores evoluiu entre 2022 e 2025, e como ela se compara com o mercado desktop geral e com uma fonte complementar de gamers?"
+Objetivo,"Comparar o uso de sistemas operacionais em fontes com publicos diferentes: comunidade de desenvolvedores, mercado desktop geral e usuarios da Steam."
+Fonte 1,Stack Overflow Developer Survey
+Link fonte 1,https://github.com/StackExchange/Survey
+Fonte 2,StatCounter Desktop OS Market Share
+Link fonte 2,https://gs.statcounter.com/os-market-share/desktop/worldwide
+Fonte 3,Steam Hardware & Software Survey
+Link fonte 3,https://store.steampowered.com/hwsurvey/Steam-Hardware-Software-Survey-Welcome-to-Steam
+Fonte 4,Historico Steam em CSV
+Link fonte 4,https://github.com/jdegene/steamHWsurvey
+Tamanho aproximado dos dados,"568 MB de CSVs brutos do Stack Overflow, CSV mensal pequeno do StatCounter, mais 31 MB de CSVs historicos da Steam como fonte complementar"
+Metodologia,CRISP-DM
+Tecnicas previstas,"Coleta de dados, inspecao de schema, limpeza, normalizacao, transformacao para Parquet, consultas em DuckDB, analise exploratoria e comparacao com fonte externa"
+Maior dificuldade,"Comparar fontes com metodologias diferentes e tratar mudancas de schema entre anos"
+Escopo futuro,"Machine Learning, dashboard, API ou analise de custo/licenciamento, se fizer sentido depois da EDA"

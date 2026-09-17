@@ -26,6 +26,16 @@ class NormalizeOSTest(unittest.TestCase):
         self.assertEqual(records[0].operating_system_family, "Other")
         self.assertEqual(records[0].operating_system_original, "Solaris")
 
+    def test_linux_variants_found_in_real_surveys(self):
+        records = normalize_os("Other Linux-based;Linux (non-WSL);Red Hat;NixOS;Pop!_OS")
+        families = [record.operating_system_family for record in records]
+        normalized = [record.operating_system_normalized for record in records]
+        self.assertEqual(families, ["Linux", "Linux", "Linux", "Linux", "Linux"])
+        self.assertEqual(
+            normalized,
+            ["Linux", "Linux", "Red Hat Enterprise Linux", "NixOS", "Pop!_OS"],
+        )
+
     def test_duplicate_exact_tokens_are_removed(self):
         records = normalize_os("Windows;Windows")
         self.assertEqual(len(records), 1)
@@ -33,4 +43,3 @@ class NormalizeOSTest(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
-

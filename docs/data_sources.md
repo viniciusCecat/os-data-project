@@ -15,6 +15,12 @@ Anos previstos inicialmente:
 
 Os arquivos brutos nao devem ser editados. Hashes SHA-256 e tamanhos sao calculados no momento do download e da validacao.
 
+Link para a planilha do seminario:
+
+```text
+https://github.com/StackExchange/Survey
+```
+
 ## StatCounter Global Stats
 
 Fonte secundaria para comparar a pesquisa com uso geral de sistemas operacionais desktop.
@@ -59,7 +65,53 @@ date,region,operating_system_original,operating_system_family,market_share,sourc
 
 Market share nao e numero exato de pessoas e nao deve ser convertido automaticamente para populacao.
 
-## Precos e licenciamento
+Link para a planilha do seminario:
+
+```text
+https://gs.statcounter.com/os-market-share/desktop/worldwide
+```
+
+## Steam Hardware & Software Survey
+
+Fonte complementar para verificar a tendencia de Linux entre usuarios ligados a jogos.
+
+Pagina oficial da pesquisa mensal da Steam:
+
+```text
+https://store.steampowered.com/hwsurvey/Steam-Hardware-Software-Survey-Welcome-to-Steam
+```
+
+Historico em CSV usado para a verificacao:
+
+```text
+https://github.com/jdegene/steamHWsurvey
+```
+
+Arquivos consultados pelo script `src/investigate_gaming_linux.py`:
+
+- `shs.csv`: aproximadamente 4.10 MB;
+- `shs_platform.csv`: aproximadamente 26.99 MB.
+
+Uso no projeto:
+
+- evidencia complementar sobre gamers/usuarios da Steam;
+- nao substitui a fonte principal Stack Overflow;
+- nao e misturada diretamente no DuckDB principal porque mede outro publico.
+
+Resultado encontrado em dezembro de cada ano:
+
+Ano | Windows | Linux | macOS
+--- | --- | --- | ---
+2022 | 96.14% | 1.38% | 2.45%
+2023 | 96.41% | 1.94% | 1.62%
+2024 | 96.33% | 2.05% | 1.40%
+2025 | 94.23% | 3.57% | 2.19%
+
+Interpretacao: Linux cresceu entre usuarios da Steam de 1.38% em 2022-12 para 3.57% em 2025-12. Essa fonte deve ser apresentada como apoio externo a tendencia, nao como prova de causalidade.
+
+## Extensao futura: precos e licenciamento
+
+Esta parte nao e foco do seminario inicial. Ela fica documentada apenas como possivel expansao, caso o grupo decida discutir custo/licenca depois da analise exploratoria principal.
 
 Arquivo preparado: `data/raw/prices/os_prices.csv`.
 

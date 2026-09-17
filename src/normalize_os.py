@@ -23,14 +23,20 @@ EXACT_RULES = {
     "gnu/linux": ("Linux", "Linux"),
     "linux-based": ("Linux", "Linux"),
     "linux based": ("Linux", "Linux"),
+    "other linux-based": ("Linux", "Linux"),
+    "linux (non-wsl)": ("Linux", "Linux"),
     "ubuntu": ("Ubuntu", "Linux"),
     "debian": ("Debian", "Linux"),
     "fedora": ("Fedora", "Linux"),
     "arch": ("Arch", "Linux"),
     "arch linux": ("Arch", "Linux"),
     "red hat enterprise linux": ("Red Hat Enterprise Linux", "Linux"),
+    "red hat": ("Red Hat Enterprise Linux", "Linux"),
     "rhel": ("Red Hat Enterprise Linux", "Linux"),
     "centos": ("CentOS", "Linux"),
+    "nixos": ("NixOS", "Linux"),
+    "pop!_os": ("Pop!_OS", "Linux"),
+    "pop os": ("Pop!_OS", "Linux"),
     "opensuse": ("openSUSE", "Linux"),
     "open suse": ("openSUSE", "Linux"),
     "macos": ("macOS", "macOS"),
@@ -54,6 +60,11 @@ PATTERN_RULES = (
     (re.compile(r"^debian\b", re.IGNORECASE), ("Debian", "Linux")),
     (re.compile(r"^fedora\b", re.IGNORECASE), ("Fedora", "Linux")),
     (re.compile(r"^arch\s+linux\b", re.IGNORECASE), ("Arch", "Linux")),
+    (re.compile(r"^linux\b", re.IGNORECASE), ("Linux", "Linux")),
+    (re.compile(r"^other\s+linux[- ]based\b", re.IGNORECASE), ("Linux", "Linux")),
+    (re.compile(r"^red\s+hat\b|^rhel\b", re.IGNORECASE), ("Red Hat Enterprise Linux", "Linux")),
+    (re.compile(r"^nixos\b", re.IGNORECASE), ("NixOS", "Linux")),
+    (re.compile(r"^pop!?\s?_?os\b", re.IGNORECASE), ("Pop!_OS", "Linux")),
     (re.compile(r"^mac\s?os\b|^macos\b|^os x\b", re.IGNORECASE), ("macOS", "macOS")),
     (re.compile(r"^freebsd\b", re.IGNORECASE), ("FreeBSD", "BSD")),
     (re.compile(r"^chrome\s?os\b", re.IGNORECASE), ("ChromeOS", "ChromeOS")),
@@ -117,4 +128,3 @@ def normalize_os(value: Any) -> list[NormalizedOS]:
             records.append(normalized)
             seen.add(key)
     return records
-
