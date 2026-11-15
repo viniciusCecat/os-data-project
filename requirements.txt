@@ -4,5 +4,6 @@ pyarrow
 requests
 jupyter
 matplotlib
+seaborn
 scikit-learn
 

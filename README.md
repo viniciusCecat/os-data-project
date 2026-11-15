@@ -67,6 +67,7 @@ python src/build_database.py
 python src/validate.py
 python src/analyze.py
 python src/generate_figures.py
+python src/train_model.py
 python src/investigate_trend.py
 python src/investigate_gaming_linux.py
 ```
@@ -101,6 +102,8 @@ O relatorio calcula dinamicamente:
 
 O projeto segue CRISP-DM. A documentacao completa esta em `docs/crisp_dm.md`.
 
+O classificador usa pais, idade, emprego e tipo de desenvolvedor para prever selecao de Linux. Experiencia profissional fica de fora porque o campo muda entre anos. O treino usa os surveys anteriores ao ano mais recente; o ano mais recente fica como teste temporal. A execucao gera `reports/model_evaluation.md` e figuras de dados ausentes e matriz de confusao. O relatorio compara baseline, regressao logistica e arvore de decisao, com metricas por classe e distribuicao do alvo, sem reamostragem automatica.
+
 As tabelas analiticas sao separadas:
 
 - `survey_respondents`
@@ -122,10 +125,6 @@ Como a pergunta aceita multiplas respostas, os percentuais por sistema podem som
 StatCounter e Stack Overflow nao sao amostras equivalentes. A comparacao e exploratoria e deve ser lida como contraste entre metodologias diferentes.
 
 A verificacao Steam tambem e exploratoria: ela mede usuarios da Steam que participam da pesquisa de hardware/software, nao todos os gamers. O relatorio gerado fica em `reports/gaming_linux_trend.md`.
-
-## Machine Learning
-
-ML nao e obrigatorio. Primeiro vem EDA. Um modelo so deve ser criado se responder uma pergunta defensavel sem vazamento de dados. Caso contrario, documente que ML nao agregaria resposta confiavel.
 
 ## Limitacoes
 

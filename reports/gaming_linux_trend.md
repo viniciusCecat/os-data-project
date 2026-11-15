@@ -16,8 +16,8 @@ https://github.com/jdegene/steamHWsurvey
 
 Arquivos CSV consultados:
 
-- `shs.csv`: 4.10 MB
-- `shs_platform.csv`: 26.99 MB
+- `shs.csv`: 4.14 MB
+- `shs_platform.csv`: 27.40 MB
 
 ## Metodo
 
@@ -36,19 +36,6 @@ Linux entre usuarios da Steam aumentou no periodo analisado:
 
 Esse resultado combina com a tendencia corrigida do Stack Overflow: em outro publico, tambem aparece crescimento de Linux. A comparacao deve ser usada como evidencia complementar, nao como prova de causalidade.
 
-## SteamOS entra onde?
-
-SteamOS Holo entra dentro da familia Linux. O percentual de Linux parece pequeno porque ele e calculado sobre todos os usuarios da Steam, incluindo Windows e macOS. Dentro do subconjunto de usuarios Linux, SteamOS Holo aparece como uma das principais versoes.
-
-Ano | Linux no total da Steam | SteamOS Holo dentro dos usuarios Linux | SteamOS Holo estimado no total da Steam
---- | --- | --- | ---
-2022 | 1.38% | 24.07% | 0.33%
-2023 | 1.94% | 40.53% | 0.79%
-2024 | 2.05% | 35.59% | 0.73%
-2025 | 3.57% | 26.32% | 0.94%
-
-Interpretacao: em 2025, Linux representa 3.57% do total da Steam. Dentro desse grupo Linux, SteamOS Holo representa 26.32%. Por isso, SteamOS e contado, mas ele nao aparece como 26.32% do total da Steam; aparece como cerca de 0.94% do total.
-
 ## Dezembro de cada ano
 
 Ano | Windows | Linux | macOS
@@ -60,8 +47,33 @@ Ano | Windows | Linux | macOS
 
 ## Ultimo mes disponivel no historico
 
-- Mes: 2026-08
-- Linux: 3.89%
+- Mes: 2026-10
+- Linux: 3.94%
+
+## Meses sem estimativa
+
+Foram ignoradas 20 combinacoes de mes e plataforma por ausencia de dados ou de versoes em comum. Essas ocorrencias nao sao tratadas como falhas silenciosas:
+
+- 2022-01-01: dados da plataforma ausentes para Linux
+- 2022-02-01: dados da plataforma ausentes para Windows
+- 2022-02-01: dados da plataforma ausentes para Linux
+- 2022-02-01: dados da plataforma ausentes para macOS
+- 2022-05-01: dados da plataforma ausentes para macOS
+- 2022-06-01: dados da plataforma ausentes para Linux
+- 2022-06-01: dados da plataforma ausentes para macOS
+- 2022-08-01: dados da plataforma ausentes para macOS
+- 2022-09-01: dados da plataforma ausentes para macOS
+- 2022-11-01: dados da plataforma ausentes para Linux
+- 2022-11-01: dados da plataforma ausentes para macOS
+- 2023-01-01: dados da plataforma ausentes para Linux
+- 2023-01-01: dados da plataforma ausentes para macOS
+- 2023-02-01: dados da plataforma ausentes para Linux
+- 2023-04-01: dados da plataforma ausentes para Windows
+- 2023-06-01: dados da plataforma ausentes para Linux
+- 2023-07-01: dados da plataforma ausentes para macOS
+- 2023-09-01: dados da plataforma ausentes para macOS
+- 2023-10-01: dados da plataforma ausentes para Linux
+- 2023-10-01: dados da plataforma ausentes para macOS
 
 ## Interpretacao para o seminario
 
@@ -81,4 +93,4 @@ Isso fortalece a pergunta de pesquisa porque mostra que a alta nao apareceu apen
 - Os percentuais sao de participacao, nao quantidade absoluta de pessoas.
 - Comparar Steam com Stack Overflow e StatCounter serve para contexto, nao para causalidade.
 
-Gerado em 2026-09-13.
+Gerado em 2026-11-15.

@@ -52,25 +52,25 @@ A hipótese investigada foi: a aparente queda inicial de Linux era um artefato d
 
 - nome: StackExchange/Survey - arquivos oficiais do Stack Overflow Developer Survey
 - link: https://github.com/StackExchange/Survey/tree/main/packages/archive
-- data: consultado em 2026-09-13
+- data: consultado em 2026-11-15
 - dado ou fato encontrado: o repositório oficial mantém, por ano, `results.csv` e `schema.csv`; os schemas registram a pergunta `OpSys` sobre o sistema operacional primário usado no trabalho.
 - relação com a hipótese: confirma que a análise usa arquivos oficiais e que a pergunta de sistema operacional vem do survey original.
 
 - nome: Valores originais encontrados nos CSVs do Stack Overflow
 - link: dados locais extraídos dos `results.csv` oficiais
-- data: consultado em 2026-09-13
+- data: consultado em 2026-11-15
 - dado ou fato encontrado: foram encontradas 26.268 seleções em valores explicitamente Linux que precisavam ficar na família Linux.
 - relação com a hipótese: esses valores explicam por que a classificação anterior jogava parte do Linux em `Other`.
 
 - nome: StatCounter Desktop OS Market Share Worldwide
 - link: https://gs.statcounter.com/os-market-share/desktop/worldwide
-- data: consultado em 2026-09-13
+- data: consultado em 2026-11-15
 - dado ou fato encontrado: nos dados coletados pelo projeto, Linux no mercado desktop geral passou de 2.69% em 2022 para 4.16% em 2025 (+1.47 p.p.).
 - relação com a hipótese: a direção do StatCounter também é de crescimento, embora em outro público e com outra metodologia.
 
 - nome: StatCounter FAQ / metodologia
 - link: https://gs.statcounter.com/faq
-- data: consultado em 2026-09-13
+- data: consultado em 2026-11-15
 - dado ou fato encontrado: o StatCounter calcula estatísticas a partir de page views em mais de 1 milhão de sites e mais de 3 bilhões de page views por mês, analisando sistema operacional por page view.
 - relação com a hipótese: mostra que o StatCounter mede mercado/uso web geral, uma população diferente do Stack Overflow.
 

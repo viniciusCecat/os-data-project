@@ -93,7 +93,7 @@ def estimate_system_share(
     system: str,
     main_os: dict[str, dict[str, float]],
     platform_os: dict[tuple[str, str], dict[str, float]],
-) -> SteamEstimate:
+) -> SteamEstimate | None:
     platform, _ = SYSTEMS[system]
     main_versions = main_os.get(survey_date, {})
     platform_versions = platform_os.get((survey_date, platform), {})
@@ -103,7 +103,7 @@ def estimate_system_share(
         if version.lower() != "other"
     )
     if not matched:
-        fail(f"Nenhuma versao em comum encontrada para {system} em {survey_date}.")
+        return None
 
     main_visible = sum(main_versions[name] for name in matched)
     platform_visible = sum(platform_versions[name] for name in matched)
@@ -124,6 +124,7 @@ def estimate_system_share(
 def estimate_all_dates(
     main_os: dict[str, dict[str, float]],
     platform_os: dict[tuple[str, str], dict[str, float]],
+    skipped_months: list[str] | None = None,
 ) -> list[SteamEstimate]:
     rows: list[SteamEstimate] = []
     for survey_date in sorted(main_os):
@@ -131,11 +132,15 @@ def estimate_all_dates(
             continue
         for system, (platform, _) in SYSTEMS.items():
             if (survey_date, platform) not in platform_os:
+                if skipped_months is not None:
+                    skipped_months.append(f"{survey_date}: dados da plataforma ausentes para {system}")
                 continue
-            try:
-                rows.append(estimate_system_share(survey_date, system, main_os, platform_os))
-            except Exception:
+            estimate = estimate_system_share(survey_date, system, main_os, platform_os)
+            if estimate is None:
+                if skipped_months is not None:
+                    skipped_months.append(f"{survey_date}: nenhuma versao em comum para {system}")
                 continue
+            rows.append(estimate)
     return rows
 
 
@@ -191,12 +196,18 @@ def markdown_table(rows: list[SteamEstimate]) -> str:
     return "\n".join(lines)
 
 
-def write_report(december_rows: list[SteamEstimate], monthly_rows: list[SteamEstimate], file_sizes: dict[str, int]) -> None:
+def write_report(
+    december_rows: list[SteamEstimate],
+    monthly_rows: list[SteamEstimate],
+    file_sizes: dict[str, int],
+    skipped_months: list[str],
+) -> None:
     REPORTS_DIR.mkdir(parents=True, exist_ok=True)
     linux_december = {row.year: row for row in december_rows if row.system == "Linux"}
     latest_linux = [row for row in monthly_rows if row.system == "Linux"][-1]
     linux_change = linux_december[2025].pct - linux_december[2022].pct
     relative_growth = linux_december[2025].pct / linux_december[2022].pct
+    skipped_text = "\n".join(f"- {item}" for item in skipped_months) if skipped_months else "- Nenhuma."
 
     lines = f"""# Tendencia Linux entre gamers
 
@@ -245,6 +256,12 @@ Esse resultado combina com a tendencia corrigida do Stack Overflow: em outro pub
 - Mes: {latest_linux.survey_date[:7]}
 - Linux: {fmt_pct(latest_linux.pct)}
 
+## Meses sem estimativa
+
+Foram ignoradas {len(skipped_months)} combinacoes de mes e plataforma por ausencia de dados ou de versoes em comum. Essas ocorrencias nao sao tratadas como falhas silenciosas:
+
+{skipped_text}
+
 ## Interpretacao para o seminario
 
 A conclusao que podemos defender e: depois da correcao da normalizacao, Linux cresceu no Stack Overflow; e uma fonte externa de gamers, a Steam Hardware Survey, tambem mostra crescimento de Linux entre usuarios da Steam.
@@ -278,17 +295,22 @@ def main() -> int:
     for year in YEARS:
         survey_date = f"{year}-12-01"
         for system in SYSTEMS:
-            december_rows.append(estimate_system_share(survey_date, system, main_os, platform_os))
+            estimate = estimate_system_share(survey_date, system, main_os, platform_os)
+            if estimate is None:
+                fail(f"Nao foi possivel estimar {system} em {survey_date}: nenhuma versao em comum.")
+            december_rows.append(estimate)
 
-    monthly_rows = estimate_all_dates(main_os, platform_os)
+    skipped_months: list[str] = []
+    monthly_rows = estimate_all_dates(main_os, platform_os, skipped_months)
     write_chart(monthly_rows)
-    write_report(december_rows, monthly_rows, {"shs": shs_size, "platform": platform_size})
+    write_report(december_rows, monthly_rows, {"shs": shs_size, "platform": platform_size}, skipped_months)
 
     print("Steam Hardware Survey - dezembro de cada ano")
     print(markdown_table(december_rows))
     linux_2022 = next(row for row in december_rows if row.year == 2022 and row.system == "Linux")
     linux_2025 = next(row for row in december_rows if row.year == 2025 and row.system == "Linux")
     print(f"Linux 2022-12 -> 2025-12: {fmt_pct(linux_2022.pct)} -> {fmt_pct(linux_2025.pct)} ({fmt_pp(linux_2025.pct - linux_2022.pct)})")
+    print(f"Combinacoes de mes/plataforma sem estimativa: {len(skipped_months)}")
     print(REPORT_PATH)
     print(FIGURE_PATH)
     return 0
