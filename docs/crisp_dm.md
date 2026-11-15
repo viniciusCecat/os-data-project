@@ -40,13 +40,13 @@ Etapas previstas:
 
 ## Modeling
 
-A prioridade e EDA e analise descritiva. Machine Learning so deve ser usado se houver pergunta justificavel, baseline, separacao treino/teste, cuidado com vazamento de dados e metricas adequadas.
+A tarefa preditiva complementar e classificar se um respondente selecionou Linux com base nas variaveis de perfil do Stack Overflow (pais, idade, emprego e tipo de desenvolvedor). A coluna de experiencia profissional foi excluida: em 2025 ela usa `WorkExp`, enquanto os anos anteriores usam `YearsCodePro`, sem equivalencia direta. A classe positiva e Linux; as demais respostas validas sao a classe negativa. Respondentes sem resposta valida de sistema operacional ficam fora da modelagem.
 
-Se os dados nao sustentarem um modelo serio, a decisao correta e documentar:
+O `src/train_model.py` compara um baseline de classe majoritaria, regressao logistica e arvore de decisao regularizada. Valores ausentes nos atributos sao preservados como uma categoria explicita durante a imputacao; atributos categoricos sao codificados com one-hot encoding. A proporcao de cada classe e registrada e nao se aplica reamostragem automatica.
 
-```text
-Machine Learning nao foi utilizado porque nao agregaria resposta confiavel a pergunta de pesquisa.
-```
+Para evitar avaliar em observacoes do mesmo periodo de treino, o ano mais recente disponivel e reservado como teste temporal, e os anos anteriores formam o treino. O ano nao e usado como preditor. O relatorio inclui acuracia, acuracia balanceada, precisao, recall e F1 para Linux, alem de ROC-AUC quando as duas classes estao presentes no teste. O melhor modelo e selecionado por F1 Linux, com acuracia balanceada e ROC-AUC como desempate.
+
+Os resultados sao associativos, nao causais. Surveys anuais independentes, mudancas de schema e diferencas de amostragem limitam a generalizacao. A execucao gera `reports/model_evaluation.md`, incluindo contagens de dados ausentes, balanceamento do alvo, comparacao dos modelos e matriz de confusao.
 
 ## Evaluation
 
@@ -60,6 +60,7 @@ A avaliacao inclui:
 - consulta DuckDB sobre tabelas finais;
 - validacao de datas e intervalo de market share;
 - comparacao da tendencia de Linux com a Steam Survey;
+- avaliacao temporal do classificador contra o baseline;
 - revisao das limitacoes metodologicas.
 
 ## Deployment
